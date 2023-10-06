@@ -1,14 +1,9 @@
 import uuid
-import logging
 import grpc
 from concurrent import futures
 import exhost_pb2 as exhost_pb2
 import exhost_pb2_grpc as exhost_pb2_grpc
-from general.logger import LoggerConfig
 from general.exchange import ExchangeFactory
-from config.configuration import (
-    LOG_DIR, EXCHANGE, TIMESTAMP, API, RPC_PORT
-)
 
 
 class ExchangeServicer(exhost_pb2_grpc.ExchangeServicer):
@@ -32,15 +27,10 @@ class ExchangeServicer(exhost_pb2_grpc.ExchangeServicer):
         yield exhost_pb2.Hash(id=unique_id)
 
 
-
-def serve():
-    logger = LoggerConfig.setup_logger(LOG_DIR, EXCHANGE, 'exhost', TIMESTAMP, level=logging.DEBUG)
-    exchange_handler = ExchangeFactory.get_handler(EXCHANGE, *API.values(), logger=logger)
+def server(port:int, exchange: str, logger, *api):
+    exchange_handler = ExchangeFactory.get_handler(exchange, *api, logger=logger)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     exhost_pb2_grpc.add_ExchangeServicer_to_server(ExchangeServicer(exchange_handler, logger), server)
-    server.add_insecure_port(f'[::]:{RPC_PORT}')
+    server.add_insecure_port(f'[::]:{port}')
     server.start()
     server.wait_for_termination()
-
-if __name__ == '__main__':
-    serve()

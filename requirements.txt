@@ -1,0 +1,3 @@
+grpcio
+grpcio-tools
+git+https://github.com/yitech/coin-infra.git
