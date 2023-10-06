@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package exhost;
+
+service Exchange {
+  rpc SendMarketOrder (MarketOrderRequest) returns (stream Hash);
+  rpc SendLimitOrder (LimitOrderRequest) returns (stream Hash);
+}
+
+message MarketOrderRequest {
+  string base = 1;
+  string quote = 2;
+  float qty = 3;
+  string side = 4;
+  bool dry_run = 5;
+}
+
+message LimitOrderRequest {
+  string base = 1;
+  string quote = 2;
+  float price = 3;
+  float qty = 4;
+  string side = 5;
+  string type = 6;
+  bool dry_run = 7;
+}
+
+message Hash {
+  string id = 1;
+ }
+
+message Empty {
+  // Empty message
+}
