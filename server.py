@@ -3,8 +3,8 @@ import grpc
 import argparse
 import logging.config
 from concurrent import futures
-import exhost_pb2 as exhost_pb2
-import exhost_pb2_grpc as exhost_pb2_grpc
+import exhost.exhost_pb2 as exhost_pb2
+import exhost.exhost_pb2_grpc as exhost_pb2_grpc
 from general.utils import read_json
 from general.exchange import ExchangeFactory
 

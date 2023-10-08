@@ -1,6 +1,6 @@
 import grpc
-import exhost_pb2 as exhost_pb2
-import exhost_pb2_grpc as exhost_pb2_grpc
+import exhost.exhost_pb2 as exhost_pb2
+import exhost.exhost_pb2_grpc as exhost_pb2_grpc
 
 class gRPCClient:
     def __init__(self, host, port, logger):
