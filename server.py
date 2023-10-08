@@ -41,7 +41,7 @@ def server(port:int, exchange: str, logger, *api):
 
 if __name__ == "__main__":
     logging.config.fileConfig('./config/logging_config.ini')
-    logger = logging.getLogger()
+    logger = logging.getLogger("gRPC")
 
     parser = argparse.ArgumentParser(description='Start the gRPC server.')
     parser.add_argument('--config', default='./config/config.grpc.json', type=str, help='Path to the JSON config file.')
