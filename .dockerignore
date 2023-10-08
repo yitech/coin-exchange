@@ -1,7 +1,23 @@
-__pycache__/
-*.pyc
-*.pyo
-*.git
+# Docker
 .dockerignore
 Dockerfile
 *.md
+
+# Python
+__pycache__
+.DS_Store
+*.pyc
+*.pyo
+*.git
+
+# venv
+venv/
+
+# Project
+config/
+*/log/
+log/
+data/
+
+# Pycharm
+.idea
