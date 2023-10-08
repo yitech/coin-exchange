@@ -8,8 +8,8 @@ setup(
     author_email='coastq22889@icloud.com',
     packages=find_packages(),
     install_requires=[
-        'grpcio'
-        'grpcio-tools'
-        'coin-infra',
+        'grpcio',
+        'grpcio-tools',
+        'coin-infra'
     ],
 )
