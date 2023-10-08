@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import exhost_pb2 as exhost__pb2
+import exhost.exhost_pb2 as exhost__pb2
 
 
 class ExchangeStub(object):
