@@ -1,8 +1,11 @@
 import uuid
 import grpc
+import argparse
+import logging.config
 from concurrent import futures
 import exhost_pb2 as exhost_pb2
 import exhost_pb2_grpc as exhost_pb2_grpc
+from general.utils import read_json
 from general.exchange import ExchangeFactory
 
 
@@ -34,3 +37,17 @@ def server(port:int, exchange: str, logger, *api):
     server.add_insecure_port(f'[::]:{port}')
     server.start()
     server.wait_for_termination()
+
+
+if __name__ == "__main__":
+    logging.config.fileConfig('./config/logging_config.ini')
+    logger = logging.getLogger()
+
+    parser = argparse.ArgumentParser(description='Start the gRPC server.')
+    parser.add_argument('--config', default='./config/config.grpc.json', type=str, help='Path to the JSON config file.')
+    args = parser.parse_args()
+
+    config = read_json(args.config)
+    logger.info(f"{config=}")
+
+    server(config["port"], config["exchange"], logger, *config["api"])
