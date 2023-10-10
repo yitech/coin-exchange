@@ -31,6 +31,7 @@ class ExchangeServicer(exhost_pb2_grpc.ExchangeServicer):
 
 
 def server(port:int, exchange: str, logger, *api):
+    logger.info(api)
     exchange_handler = ExchangeFactory.get_handler(exchange, *api, logger=logger)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     exhost_pb2_grpc.add_ExchangeServicer_to_server(ExchangeServicer(exchange_handler, logger), server)
@@ -50,4 +51,4 @@ if __name__ == "__main__":
     config = read_json(args.config)
     logger.info(f"{config=}")
 
-    server(config["port"], config["exchange"], logger, *config["api"])
+    server(config["port"], config["exchange"], logger, *config["api"].values())

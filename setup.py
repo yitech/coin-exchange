@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='exhost',
-    version='1.0.0',
+    version='1.0.1',
     description='client of grpc for user send order',
     author='Yi Te',
     author_email='coastq22889@icloud.com',
