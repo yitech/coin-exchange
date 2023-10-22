@@ -19,8 +19,7 @@ class ExchangeServicer(exhost_pb2_grpc.ExchangeServicer):
         self.logger.info(f"Request ID: {unique_id}")
         yield exhost_pb2.Hash(id=unique_id)
         self.logger.info(f'Send {request=}')
-        res = self.exchange_handler.create_market_order(request.base, request.quote, request.side, request.qty,
-                                                        request.dry_run)
+        res = self.exchange_handler.create_market_order(request.base, request.quote, request.side, request.qty)
         self.logger.info(f'Receive {res=}')
 
     def SendLimitOrder(self, request, context):
@@ -28,9 +27,13 @@ class ExchangeServicer(exhost_pb2_grpc.ExchangeServicer):
         unique_id = uuid.uuid4().hex
         self.logger.info(f"Request ID: {unique_id}")
         yield exhost_pb2.Hash(id=unique_id)
+        self.logger.info(f'Send {request=}')
+        res = self.exchange_handler.create_limit_order(request.base, request.quote, request.side, request.qty,
+                                                       request.price)
+        self.logger.info(f'Receive {res=}')
 
 
-def server(port:int, exchange: str, logger, *api):
+def server(port: int, exchange: str, logger, *api):
     logger.info(api)
     exchange_handler = ExchangeFactory.get_handler(exchange, *api, logger=logger)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

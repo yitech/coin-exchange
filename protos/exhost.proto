@@ -12,7 +12,6 @@ message MarketOrderRequest {
   string quote = 2;
   float qty = 3;
   string side = 4;
-  bool dry_run = 5;
 }
 
 message LimitOrderRequest {
@@ -21,8 +20,6 @@ message LimitOrderRequest {
   float price = 3;
   float qty = 4;
   string side = 5;
-  string type = 6;
-  bool dry_run = 7;
 }
 
 message Hash {
